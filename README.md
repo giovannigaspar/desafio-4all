@@ -40,8 +40,8 @@ Exemplo:
 
 O dataframe final deve ser salvo em um banco de dados relacional e precisa conter as seguintes informações:
 
-latitude|longitude|rua|numero|bairro|cidade|cep|estado|pais|endereço completo
---------|---------|---|------|------|------|---|------|----|-----------------
+|latitude|longitude|rua|numero|bairro|cidade|cep|estado|pais|endereço completo|
+|--------|---------|---|------|------|------|---|------|----|-----------------|
 
 Os seguintes quesitos serão avaliados:
 
