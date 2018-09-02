@@ -55,7 +55,8 @@ Os seguintes quesitos serão avaliados:
 ## Bônus
 
 Além do enriquecimento proposto, que análises poderiam ser feitas utilizando essa massa de dados? Que métricas poderiam ser obtidas?
+
 **R:** Seria possível traçar pontos em um mapa e analisar locais mais frequentados. Através destes dados seria possível:
- - Analisar o melhor local para abertura de um estabelecimento comercial, como um restaurante
- - Uma empresa de transporte público analisar rotas que necessitariam de melhorias quanto à frota
- - Serviços de segurança pública analisarem a necessidade de melhorias em uma determinada região devido à maior concentração de pessoas
+- Analisar o melhor local para abertura de um estabelecimento comercial, como um restaurante
+- Uma empresa de transporte público analisar rotas que necessitariam de melhorias quanto à frota
+- Serviços de segurança pública analisarem a necessidade de melhorias em uma determinada região devido à maior concentração de pessoas
