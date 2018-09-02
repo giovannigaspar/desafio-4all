@@ -51,8 +51,8 @@
 
   *$ pip install -r requirements.txt
 
-  $ python3 main.py nome_do_arquivo.txt
+  $ python3 run.py 'arquivo1.txt' 'arquivo2.txt' 'etc'
+    - Exemplo: python3 run.py '/home/giovannigaspar/Downloads/data_points/data_points_20180101.txt'
 
 
 **Obs:** *Necessário apenas na primeira execução
-

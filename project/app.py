@@ -6,7 +6,8 @@ __email__ = "giovannigaspar@outlook.com"
 __status__ = "Development"
 
 
-import sys, os
+import time
+
 
 # Importando conexão e métodos do banco de dados
 from db import get_dict_resultset, ONE
@@ -39,11 +40,22 @@ def read_coordinates_file(filename, debug=False):
     with open(filename, 'r', newline='') as f:
         content = f.readlines()
         for idx, line in enumerate(content):
-            if (idx+1) % 3 == 0:
-                coordinates.append({
-                    'lat': content[idx-2].split('   ')[1].rstrip('\n'),
-                    'lon': content[idx-1].split('   ')[1].rstrip('\n')
-                })
+            # Como nem sempre existe a linha "distance", esse código gera erro
+            #if (idx+1) % 3 == 0:
+            #    coordinates.append({
+            #        'lat': content[idx-2].split('   ')[1].rstrip('\n'),
+            #        'lon': content[idx-1].split('   ')[1].rstrip('\n')
+            #    })
+            # Como existe um padrão em que sempre há Latitude e Longitude, essa
+            # forma funcionou melhor
+            if len(line.split('Longitude:')) > 1:
+                # Foi necessária essa linha, pois existem casos que não há
+                # latitude e longitude no arquivo de texto
+                if len(content[idx-1].split('Latitude')) > 1:
+                    coordinates.append({
+                        'lat': content[idx-1].split('   ')[1].rstrip('\n'),
+                        'lon': content[idx].split('   ')[1].rstrip('\n')
+                    })
     if debug:
         print(coordinates)
     return coordinates
@@ -64,11 +76,14 @@ def get_locations(coordinates, debug=False):
     :return: JSON contendo as informações do local pesquisado
     """
     points = coordinates['lat'] + ', ' + coordinates['lon']
-    location = geolocator.reverse(points)
-    if debug:
-        print(location.raw)
-    return location.raw
-
+    try:
+        location = geolocator.reverse(points)
+        if debug:
+            print(location.raw)
+        time.sleep(1) # O Serviço do nomatim suporta apenas 1 requisição por segundo
+        return location.raw
+    except:
+        return get_locations(coordinates, debug)
 
 
 def populate_database(js):
@@ -99,11 +114,11 @@ def populate_database(js):
         js['lon'],
         js_address.get('road', None),
         js_address.get('house_number', None),
-        js_address['suburb'],
-        js_address['city'],
-        js_address['postcode'],
-        js_address['state'],
-        js_address['country'],
+        js_address.get('suburb', None),
+        js_address.get('city', None),
+        js_address.get('postcode', None),
+        js_address.get('state', None),
+        js_address.get('country', None),
         js['display_name']
     )
     return get_dict_resultset(sql, param, ONE)
@@ -115,12 +130,8 @@ def main(filename):
 
     # Armazena informações no banco de dados e imprimi IDs armazenados
     for items in coordinates:
-        print(populate_database(get_locations(items)))
-
-
-#python main.py 'tests/data_points_20180101.txt'
-filename = sys.argv[1]
-if not os.path.isfile(filename):
-    print('Arquivo não encontrado!')
-else:
-    main(filename)
+        r = populate_database(get_locations(items))
+        if r:
+            print(r)
+        else:
+            print('Não há informações disponíveis para o item:\n' +str(items))
