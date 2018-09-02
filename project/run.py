@@ -2,7 +2,7 @@ import sys, os
 from app import main
 
 
-#python run.py 'arquivo1' 'arquivo2' 'etc'
+#python3 run.py tests/test.txt tests/test2.txt
 if len(sys.argv) < 2:
     print('Nenhum arquivo informado!')
 else:
