@@ -12,7 +12,9 @@
 
     $ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
       sudo apt-key add -
+
     $ sudo apt-get update
+
     $ sudo apt-get install postgresql-10
 
 
@@ -26,17 +28,27 @@
 
 ## Utilização do projeto
   *$ sudo apt-get install python-pip
+
   *$ sudo apt-get install python3-venv
 
   $ cd pasta_do_projeto
+
   *$ mkdir env
+
   *$ python3 -m venv env
+
   $ source env/bin/activate
+
   $ cd project
+
   $ source exports.sh
+
   *$ pip install -U pip
+
   *$ pip install -r requirements.txt
+  
   $ python3 main.py nome_do_arquivo.txt
+
 
 **Obs:** *Necessário apenas na primeira execução
 
