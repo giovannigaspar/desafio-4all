@@ -1,3 +1,14 @@
+__author__ = "Giovanni Gaspar"
+__copyright__ = ""
+__version__ = "0.1"
+__maintainer__ = "Giovanni Gaspar"
+__email__ = "giovannigaspar@outlook.com"
+__status__ = "Development"
+
+
+import sys, os
+
+# Importando conexão e métodos do banco de dados
 from db import get_dict_resultset, ONE
 
 # Biblioteca de geolocalização open source: https://github.com/geopy/geopy
@@ -71,7 +82,7 @@ def populate_database(js):
             latitude,
             longitude,
             rua,
-            numero, 
+            numero,
             bairro,
             cidade,
             cep,
@@ -82,7 +93,7 @@ def populate_database(js):
         RETURNING ID
     '''
 
-    js_address = js['address']    
+    js_address = js['address']
     param = (
         js['lat'],
         js['lon'],
@@ -98,13 +109,18 @@ def populate_database(js):
     return get_dict_resultset(sql, param, ONE)
 
 
-def main():
+def main(filename):
     # Leitura do arquivo de coordenadas
-    coordinates = read_coordinates_file('tests/data_points_20180101.txt')
+    coordinates = read_coordinates_file(filename)
 
     # Armazena informações no banco de dados e imprimi IDs armazenados
-    for items in coordinates:        
+    for items in coordinates:
         print(populate_database(get_locations(items)))
 
 
-main()
+#python main.py 'tests/data_points_20180101.txt'
+filename = sys.argv[1]
+if not os.path.isfile(filename):
+    print('Arquivo não encontrado!')
+else:
+    main(filename)
