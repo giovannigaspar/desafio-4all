@@ -82,12 +82,12 @@ def populate_database(js):
         RETURNING ID
     '''
 
-    js_address = js['address']
+    js_address = js['address']    
     param = (
         js['lat'],
         js['lon'],
-        js_address['road'],
-        js_address['house_number'],
+        js_address.get('road', None),
+        js_address.get('house_number', None),
         js_address['suburb'],
         js_address['city'],
         js_address['postcode'],
@@ -101,7 +101,10 @@ def populate_database(js):
 def main():
     # Leitura do arquivo de coordenadas
     coordinates = read_coordinates_file('tests/data_points_20180101.txt')
-    print(populate_database(get_locations(coordinates[0])))
+
+    # Armazena informações no banco de dados e imprimi IDs armazenados
+    for items in coordinates:        
+        print(populate_database(get_locations(items)))
 
 
 main()
