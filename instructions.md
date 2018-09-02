@@ -3,6 +3,7 @@
 
 
 ## Ferramentas utilizadas:
+
 - Codificação
   - Visual Code (https://code.visualstudio.com/docs/?dv=linux64_deb)
 
@@ -19,12 +20,17 @@
 
 
 ## Criação do banco de dados
- $ sudo su postgres
- $ createuser -P -s -e sysdba
-   - usar senha "masterkey" (sem aspas)
- $ createdb desafio_4all
- $ psql -d desafio_4all -1 -f <filename>.sql
-   - filename seria o arquivo tables.sql localizado neste projeto
+  $ sudo su postgres
+
+  $ createuser -P -s -e sysdba
+
+  - usar senha "masterkey" (sem aspas)
+
+  $ createdb desafio_4all
+
+  $ psql -d desafio_4all -1 -f <filename>.sql
+
+    - filename seria o arquivo tables.sql localizado neste projeto
 
 ## Utilização do projeto
   *$ sudo apt-get install python-pip
