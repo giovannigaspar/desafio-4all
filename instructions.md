@@ -53,7 +53,12 @@
 
   $ python3 run.py arquivo1.txt arquivo2.txt etc
 
-    - Exemplo: python3 run.py /home/giovannigaspar/Downloads/data_points/data_points_20180101.txt
-
+    Exemplo: python3 run.py /home/giovannigaspar/Downloads/data_points/data_points_20180101.txt
 
 **Obs:** *Necessário apenas na primeira execução
+
+
+## Rodar testes
+  $ cd pasta_do_projeto/project
+
+  $ python3 tests.py

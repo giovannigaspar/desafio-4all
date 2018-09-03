@@ -6,7 +6,7 @@ __email__ = "giovannigaspar@outlook.com"
 __status__ = "Development"
 
 
-import time
+import time, os
 
 
 # Importando conexão e métodos do banco de dados
@@ -124,14 +124,21 @@ def populate_database(js):
     return get_dict_resultset(sql, param, ONE)
 
 
-def main(filename):
-    # Leitura do arquivo de coordenadas
-    coordinates = read_coordinates_file(filename)
+def main_route(filename):
+    insertedItems = 0
+    if os.path.isfile(filename):
+        # Leitura do arquivo de coordenadas
+        coordinates = read_coordinates_file(filename)
 
-    # Armazena informações no banco de dados e imprimi IDs armazenados
-    for items in coordinates:
-        r = populate_database(get_locations(items))
-        if r:
-            print(r)
-        else:
-            print('Não há informações disponíveis para o item:\n' +str(items))
+        # Armazena informações no banco de dados e imprimi IDs armazenados
+        for items in coordinates:
+            r = populate_database(get_locations(items))
+            if r:
+                insertedItems = (insertedItems + 1)
+                print(r)
+            else:
+                print(
+                    'Não há informações disponíveis para o item:\n' +str(items))
+    else:
+        print('Arquivo "'+filename+'" não encontrado!')
+    return insertedItems
